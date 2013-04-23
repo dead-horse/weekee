@@ -1,0 +1,21 @@
+{
+  "name": "weekee",
+  "version": "0.0.1",
+  "description": "A wiki base git and markdown, power by Node.js, and can be use with connect or express",
+  "keywords": ["wiki", "git", "markdown"],
+  "author": "dead-horse <dead_horse@qq.com>",
+  "repository": { "type": "git", "url": "git@github.com:dead-horse/weekee.git" },
+  "dependencies": {
+    "connect": "2.7.6",
+    "socket.io": "0.9.14",
+    "eventproxy": "0.2.2",
+    "marked": "0.2.8",
+    "ndir": "0.1.5"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "jscover": ">=0.2.0"
+  },
+  "main": "index"
+}
