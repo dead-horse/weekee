@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>node-weekee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link rel="stylesheet" type="text/css"  href="http://lib.sinaapp.com/js/bootstrap/latest/css/bootstrap.min.css">
+    
+    <style>
+      #weekee-sidebar {
+        padding: 0;
+        background-color: white;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+        -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+        font-size: 14px;
+        font-family: 'PT Mono', monospace;
+        border: 1px solid #ddd;
+        width: 220px;
+        margin: 30px 0 0 0;
+      }
+      #weekee-folder li a {
+        padding: 8px 0 8px 20px;
+      }
+      #weekee-foldername {
+        padding: 8px 0 8px 20px;
+        font-size: 18px;
+        border-bottom: 1px solid #ddd;
+      }      
+      #container {
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+        -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .065);
+        font-size: 14px;
+        font-family: 'PT Mono', monospace, Microsoft YaHei, '微软雅黑';
+        border: 1px solid #ddd;
+        min-height: 300px;        
+        margin-top: 20px;
+      }
+      #weekee-header {
+        border-bottom: 1px solid #ddd;
+        background-color: #ddd;
+        height: 40px;
+      }
+
+      #weekee-title {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 10px 10px 30px;
+        float: left;
+      }
+
+      #weekee-file-controllers {
+        float: right;
+        line-height: 40px;
+        padding-right: 20px;
+      }
+
+      #weekee-content {
+        padding: 10px;
+        margin: 20px 10px;
+      }
+
+      #weekee-folder-controllers {
+        padding: 10px;
+        border-top: 1px solid #ddd;
+      }
+
+      #weekee-folder {
+        margin-bottom: 20px;
+        margin-left: 0;
+        list-style: none;
+      }
+
+      #weekee-folder > li > a {
+        display: block;
+        text-decoration: none;
+      }
+
+      #weekee-folder > .weekee-selected > a:hover {
+        color: white;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+        background-color: #08C;        
+        text-decoration: none;
+      }
+
+      #weekee-folder > li > a:hover {
+        background-color: #eee;
+        text-decoration: none;
+      }
+
+      .weekee-selected > a{
+        color: white;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+        background-color: #08C;
+        text-decoration: none;
+      }
+    </style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/weekee/js/ace/ace.js"></script>
+  </head>
+  <body>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="/">Node Weekee</a>
+          <div class="nav-collapse">
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid" style="padding:60px;">
+      <div class="row-fluid">
+        <div class="span3" id="sidebar-container">
+          <div id="weekee-sidebar">
+          </div>
+        </div>
+        <div class="span9" style="min-height:500px;">
+          <div class="row-fluid" id="container">
+            <div id="weekee-header" class="clearfix">
+              <div id="weekee-title">Node Weekee</div>
+              <div id="weekee-file-controllers"></div>
+            </div>
+            
+            <div id="weekee-content">Click on a file on the left to open it</div>
+          </div><!--/row-->
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>node-weekee, written by <a href="http://deadhorse.me">dead_horse</a></p>
+      </footer>
+    </div>    
+    <script src="/weekee/js/weekee.js"></script>
+    <script>
+      $('button').addClass('btn');
+      $('#weekee-create').addClass('btn-success');
+      $('#weekee-save').addClass('btn-success');
+      $('#weekee-newfolder').addClass('btn-success');
+      $('#weekee-edit').addClass('btn-success');
+      $('#weekee-cancle').addClass('btn-danger');
+      $('#weekee-delete').addClass('btn-danger');
+      $('#weekee-deletefolder').addClass('btn-danger');
+
+    </script>
+    <script>
+      $('#weekee-edit, #weekee-create').click(function () {
+        var $node = $('#weekee-edit-content');
+        var h = $node.height();
+        var w = $node.width();
+        $node.before('<div id="weekee-aceedit-content" style="height:' + h + 'px; width:' + w + 'px; border: 1px solid #DDD; border-radius: 4px;"></div>');
+        $node.hide();
+        editor = ace.edit('weekee-aceedit-content');
+        var heightUpdateFunction = function() {
+          // http://stackoverflow.com/questions/11584061/
+          var newHeight = editor.getSession().getScreenLength() * editor.renderer.lineHeight + 
+            editor.renderer.scrollBar.getWidth();
+          if (newHeight < h) {
+            newHeight = h;
+          }
+          $('weekee-aceedit-content').height(newHeight + 'px');
+          //$('#editor-section').height(newHeight.toString() + "px"); 
+ 
+          // This call is required for the editor to fix all of
+          // its inner structure for adapting to a change in size
+          editor.resize();
+        };
+
+        // Set initial size to match initial content
+        heightUpdateFunction();
+
+        // Whenever a change happens inside the ACE editor, update
+        // the size again
+        editor.getSession().on('change', heightUpdateFunction);
+
+        editor.getSession().setTabSize(2);
+        editor.getSession().setUseSoftTabs(true);
+        editor.getSession().setUseWrapMode(true);
+        editor.setValue($node.val(), 1);
+        editor.setTheme("ace/theme/chrome");
+        editor.getSession().setMode("ace/mode/markdown");
+        editor.getSession().on('change', function () {
+          $node.val(editor.getValue());
+        });         
+      });
+    </script>
+  </body>
+</html>

@@ -6,11 +6,11 @@
   "author": "dead-horse <dead_horse@qq.com>",
   "repository": { "type": "git", "url": "git@github.com:dead-horse/weekee.git" },
   "dependencies": {
-    "connect": "2.7.6",
     "socket.io": "0.9.14",
     "eventproxy": "0.2.2",
     "marked": "0.2.8",
-    "ndir": "0.1.5"
+    "ndir": "0.1.5",
+    "node-static": "0.6.9"
   },
   "devDependencies": {
     "mocha": "*",

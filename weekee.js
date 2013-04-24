@@ -9,19 +9,39 @@
  * Module dependencies.
  */
 var sio = require('socket.io');
-var defaultServer = require('./lib/server');
 var ioHandler = require('./lib/io');
+var nodeStatic = require('node-static');
 
+/**
+ * Init a weekee
+ * @param {Object} options 
+ *   - {HttpServer} server         a http server or use connect/express
+ *   - {Number} port               if use the defualt server, the default server will listen this port, defualt is 8080
+ *   - {Function} configSocketIO   a function that set socketIO's config
+ *   - {String} directory          the root directory of wiki
+ * @return {[type]} [description]
+ */
 function weekee(options) {
   options = options || {};
-  this.server = options.server || defaultServer(options.port || 7001);
-  this.io = sio.listen(this.server);
-  this.authorization = options.authorization;
-  this.directory = options.directory || process.cwd();
-  this.authorization && this.io.set('authorization', this.authorization);
-  this.io.on('connection', function (socket) {
-    ioHandler.create(socket, this.directory);
-  }.bind(this));
+  var server = options.server;
+  var enableStatic;
+  //http server
+  if (server) {
+    enableStatic = options.enableStatic || true;
+  } else {
+    //default http server. pathname = `/`
+    server = require('./lib/server')(options.port || 8080);
+    enableStatic = true;
+  }
+
+  //enable static file, pathname in `/weekee/assets/`
+  enableStatic && require('./lib/static')(server);
+
+  var io = sio.listen(server);
+
+  var directory = options.directory || process.cwd();
+  options.configSocketIO && options.configSocketIO(io);
+  ioHandler.bind(io, directory);
 }
 
 weekee({
