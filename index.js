@@ -57,12 +57,3 @@ module.exports = function weekee(options) {
   options.configSocketIO && options.configSocketIO(io);
   ioHandler.bind(io, directory, git);  
 };
-
-
-
-var options = {
-  directory: __dirname + '/wiki',
-  git: 'git@gitlab.alibaba-inc.com:busi.hyy/npmweb-wiki.git'
-};
-
-module.exports(options);
