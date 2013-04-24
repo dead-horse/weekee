@@ -11,6 +11,7 @@
 var sio = require('socket.io');
 var ioHandler = require('./lib/io');
 var nodeStatic = require('node-static');
+var gitActions = require('./lib/git');
 
 /**
  * Init a weekee
@@ -19,12 +20,26 @@ var nodeStatic = require('node-static');
  *   - {Number} port               if use the defualt server, the default server will listen this port, defualt is 8080
  *   - {Function} configSocketIO   a function that set socketIO's config
  *   - {String} directory          the root directory of wiki
+ *   - {Boolean} enableStatic      enable static files from weekee, and user can use `/weekee/js/weekee.js` to got script in frontend
+ *   - {String} git                git remote url
  * @return {[type]} [description]
  */
 module.exports = function weekee(options) {
   options = options || {};
   var server = options.server;
   var enableStatic;
+  var git = options.git || '';
+  var directory = options.directory || process.cwd();
+  if (git) {
+    gitActions.init(git, directory, function (err, message) {
+      if (err) {
+        console.error('[INIT GIT ERROR]' + err.message);
+      }
+      if (message) {
+        console.warn('[INIT GIT WARN]' + message);
+      }
+    });
+  }
   //http server
   if (server) {
     enableStatic = options.enableStatic || true;
@@ -39,9 +54,15 @@ module.exports = function weekee(options) {
 
   var io = sio.listen(server);
 
-  var directory = options.directory || process.cwd();
   options.configSocketIO && options.configSocketIO(io);
-  ioHandler.bind(io, directory);
+  ioHandler.bind(io, directory, git);  
 };
 
 
+
+var options = {
+  directory: __dirname + '/wiki',
+  git: 'git@gitlab.alibaba-inc.com:busi.hyy/npmweb-wiki.git'
+};
+
+module.exports(options);
