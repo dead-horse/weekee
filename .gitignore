@@ -8,3 +8,4 @@ lib-cov/
 .lock-wscript
 build/
 wiki/
+demo.js
