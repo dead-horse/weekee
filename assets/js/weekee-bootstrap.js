@@ -22,4 +22,5 @@ $(function () {
   $('#weekee-cancle').addClass('btn-danger');
   $('#weekee-delete').addClass('btn-danger');
   $('#weekee-deletefolder').addClass('btn-danger');
+  $('#weekee-header').addClass('clearfix');
 });

@@ -4,20 +4,26 @@ $(function () {
   var CURRENT_DIRECTORY = '';
 
   var folderSidebar = 
-  '<div id="weekee-foldername"></div>\
-   <ul id="weekee-folder"></ul>\
-   <div id="weekee-folder-controllers">\
-    <input type="text" style="width: 80%; display: none;" id="weekee-edit-folder"></input>\
-    <button id="weekee-newfolder">New Folder</button>\
-    <button id="weekee-deletefolder" style="display: none;">Del Folder</button>\
-   </div>';
+    '<div id="weekee-foldername"></div>\
+     <ul id="weekee-folder"></ul>\
+     <div id="weekee-folder-controllers">\
+      <input type="text" style="width: 80%; display: none;" id="weekee-edit-folder"></input>\
+      <button id="weekee-newfolder">New Folder</button>\
+      <button id="weekee-deletefolder" style="display: none;">Del Folder</button>\
+     </div>';
 
-  var controllers = 
-    '<button id="weekee-create">New</button>\
-     <button id="weekee-edit" style="display: none;">Edit</button>\
-     <button id="weekee-delete" style="display: none;">Delete</button>\
-     <button id="weekee-cancle" style="display: none;">Cancle</button>\
-     <button id="weekee-save" style="display: none;">Save</button>';
+  var fileContainer = 
+    '<div id="weekee-header" class="clearfix">\
+       <div id="weekee-title">Node Weekee</div>\
+       <div id="weekee-file-controllers">\
+         <button id="weekee-create">New</button>\
+         <button id="weekee-edit" style="display: none;">Edit</button>\
+         <button id="weekee-delete" style="display: none;">Delete</button>\
+         <button id="weekee-cancle" style="display: none;">Cancle</button>\
+         <button id="weekee-save" style="display: none;">Save</button>\
+       </div>\
+     </div>\
+     <div id="weekee-content">Click on a file on the left to open it</div>';
 
   var edit = 
     '<textarea style="width: 100%; height: 500px;" id="weekee-edit-content"></textarea>';
@@ -26,9 +32,8 @@ $(function () {
     '<input type="text" style="width: 100%;" id="weekee-edit-title"></input>';
 
   var newFolderHtml = 
-
-  $('#weekee-file-controllers').html(controllers);
-  $('#weekee-sidebar').html(folderSidebar);
+  $('#weekee-file-container').html(fileContainer);
+  $('#weekee-folder-container').html(folderSidebar);
 
   var buttonActions = {
     noFileOpen: function () {
