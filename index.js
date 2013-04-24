@@ -21,16 +21,19 @@ var gitActions = require('./lib/git');
  *   - {Function} configSocketIO   a function that set socketIO's config
  *   - {String} directory          the root directory of wiki
  *   - {Boolean} enableStatic      enable static files from weekee, and user can use `/weekee/js/weekee.js` to got script in frontend
- *   - {String} git                git remote url
+ * @param {Object} git
+ *   - {String} url            git remote url
+ *   - {String} name           git user.name
+ *   - {String} email          git user.email
  * @return {[type]} [description]
  */
 module.exports = function weekee(options) {
   options = options || {};
   var server = options.server;
   var enableStatic;
-  var git = options.git || '';
+  var git = options.git || {};
   var directory = options.directory || process.cwd();
-  if (git) {
+  if (options.git) {
     gitActions.init(git, directory, function (err, message) {
       if (err) {
         console.error('[INIT GIT ERROR]' + err.message);
