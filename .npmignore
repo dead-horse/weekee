@@ -7,4 +7,5 @@ lib-cov/
 .lock-wscript
 build/
 test/
+wiki/
 demo.js
