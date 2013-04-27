@@ -103,6 +103,7 @@ $(function () {
       $('#weekee-deletefolder').hide();
     }
     $('#weekee-foldername').html(data.folderName || 'ROOT_DIR');
+    window.location.hash = data.directory;
     CURRENT_DIRECTORY = data.directory;
     renderSideBar(data);      
   });
