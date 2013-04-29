@@ -62,7 +62,8 @@ $(function () {
     if (!data.isRoot) {
       html += tplReplace(sideLi, {
         displayName: '..',
-        realName: '..'
+        realName: '..',
+        selected: ''
       });        
     }
     data.files.forEach(function (row) {
@@ -77,6 +78,14 @@ $(function () {
   }
 
   function renderContent(data) {
+    window.location.hash = data.fileName ?
+      ('#' + (CURRENT_DIRECTORY ? CURRENT_DIRECTORY + '/' : '') + data.fileName) : '';
+    $('.files').each(function (i, row) {
+      if ($(row).data('name') === data.fileName) {
+        $('.files').removeClass('weekee-selected');
+        $(this).addClass('weekee-selected');          
+      }
+    });
     FILE = data;
     if (data.fileName) {
       buttonActions.fileOpen();
@@ -90,7 +99,12 @@ $(function () {
   }
 
   var socket = window.socket = io.connect(window.location.protocol + '//' + window.location.host);
-  socket.emit('readFolder');
+  var hash = window.location.hash;
+  if (hash) {
+    socket.emit('readFolderAndFile', hash.slice(1));  
+  } else {
+    socket.emit('readFolder');  
+  }
   socket.on('error', function (msg) {
     console.log(msg);
     alert(msg);
@@ -103,7 +117,6 @@ $(function () {
       $('#weekee-deletefolder').hide();
     }
     $('#weekee-foldername').html(data.folderName || 'ROOT_DIR');
-    window.location.hash = data.directory;
     CURRENT_DIRECTORY = data.directory;
     renderSideBar(data);      
   });
@@ -146,8 +159,6 @@ $(function () {
 
   $('#weekee-folder').delegate('.files', 'click', function () {
     var fileName = $(this).data('name');
-    $('.files').removeClass('weekee-selected');
-    $(this).addClass('weekee-selected');
     if (fileName === FILE.fileName) {
       return;
     }
