@@ -10,7 +10,11 @@
     "eventproxy": "0.2.2",
     "marked": "0.2.8",
     "ndir": "0.1.5",
-    "node-static": "0.6.9"
+    "node-static": "0.6.9",
+    "commander": "1.1.1"
+  },
+  "bin": {
+    "weekee": "./bin/weekee"
   },
   "devDependencies": {
     "mocha": "*",

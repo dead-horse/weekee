@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+/*!
+ * weekee - bin/weekee 
+ * Copyright(c) 2013
+ * Author: dead-horse <dead_horse@qq.com>
+ */
+
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var weekee = require('../');
+
+var version = require('../package').version;
+
+var program = require('commander');
+
+program
+  .version(version)
+  .usage('weekee [options]. To host a directory as a wiki in the browser.')
+  .option('-d, --directory', 'target directory')
+  .option('-p --port', 'listen port, defualt is 8080')
+  .option('-g, --git', 'git origin url')
+  .option('-n, --name', 'git user.name')
+  .option('-e, --email', 'git user.email')
+  .parse(process.argv);
+
+var git;
+if (program.git) {
+  git = {
+    url: program.git,
+    name: program.name,
+    email: program.email
+  };
+}
+weekee.create({
+  directory: program.directory,
+  git: git,
+  port: program.port,
+  configSocketIO: function (io) {
+    io.set('log level', 1);
+  }
+});
+
+console.log('weekee created! And start listen %d', program.port || 8080);
