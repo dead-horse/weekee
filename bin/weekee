@@ -21,11 +21,11 @@ var program = require('commander');
 program
   .version(version)
   .usage('weekee [options]. To host a directory as a wiki in the browser.')
-  .option('-d, --directory', 'target directory')
-  .option('-p --port', 'listen port, defualt is 8080')
-  .option('-g, --git', 'git origin url')
-  .option('-n, --name', 'git user.name')
-  .option('-e, --email', 'git user.email')
+  .option('-d, --directory <n>', 'target directory')
+  .option('-p --port <n>', 'listen port, defualt is 8080', parseInt)
+  .option('-g, --git <n>', 'git origin url')
+  .option('-n, --name <n>', 'git user.name')
+  .option('-e, --email <n>', 'git user.email')
   .parse(process.argv);
 
 var git;
@@ -36,6 +36,7 @@ if (program.git) {
     email: program.email
   };
 }
+console.log(program);
 weekee.create({
   directory: program.directory,
   git: git,
