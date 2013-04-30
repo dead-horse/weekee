@@ -3,7 +3,7 @@ var oHead = document.getElementsByTagName('HEAD').item(0);
 var oScript= document.createElement("script");
 oScript.type = "text/javascript";
 oScript.src="/weekee/js/ace/ace.js";
-oHead.appendChild( oScript);
+oHead.appendChild(oScript);
 
 $(function () {
   $('#weekee-edit, #weekee-create').click(function () {

@@ -92,3 +92,8 @@
   background-color: #08C;
   text-decoration: none;
 }
+
+pre {
+  background-color: #fff;
+  border: 0px;
+}
