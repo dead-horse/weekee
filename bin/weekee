@@ -36,7 +36,6 @@ if (program.git) {
     email: program.email
   };
 }
-console.log(program);
 weekee.create({
   directory: program.directory,
   git: git,
