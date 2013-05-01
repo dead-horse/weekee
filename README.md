@@ -5,7 +5,41 @@
 
 -----------------------
 
-### Usage  
+### Install  
+
+```
+npm install -g weekee   
+```
+
+### Use As A Command Line Application   
+
+After install by npm -g, you can use `weekee` like this:   
+```
+weekee -h
+
+  Usage: weekee weekee [options]. To host a directory as a wiki in the browser.
+
+  Options:
+
+    -h, --help           output usage information
+    -V, --version        output the version number
+    -d, --directory <n>  target directory
+    -p --port <n>        listen port, defualt is 8080
+    -g, --git <n>        git origin url
+    -n, --name <n>       git user.name
+    -e, --email <n>      git user.email
+
+```
+
+`weekee` default listen at 8080, and host the current directory.You can change it by options.  
+
+```
+$ weekee   
+   info  - socket.io started
+weekee created! And start listen 8080
+```
+
+### Use In Project  
 You can both use weekee's default http server and your own http server write by connect/express/http.   
 weekee's options are:    
 
@@ -118,12 +152,6 @@ If you want to get a better editor with [ace](https://github.com/ajaxorg/ace), j
 
 ```html
 <script src="/weekee/js/weekee-ace.js"></script>
-```
-
-### Install  
-
-```
-npm install weekee   
 ```
 
 ### dependences   
