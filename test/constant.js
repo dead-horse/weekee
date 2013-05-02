@@ -9,5 +9,8 @@
 /**
  * Module dependencies.
  */
+var path = require('path');
 
-exports.directory = './fixtures/wiki';
+exports.directory = path.join(__dirname, 'fixtures', 'test_wiki');
+exports.ohterDirectory = path.join(__dirname, 'fixtures', 'other_wiki');
+
