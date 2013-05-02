@@ -8,7 +8,8 @@
 /**
  * Module dependencies.
  */
-var weekee =require('./lib/weekee');
+var lib = process.env.WEEKEE_COV ? './lib-cov/' : './lib/';
+var weekee = require(lib + 'weekee');
 
 /**
  * Init a weekee
@@ -26,3 +27,10 @@ var weekee =require('./lib/weekee');
 exports.create = weekee.create;
 exports.RedisStore = require('socket.io/lib/stores/redis');
 exports.redis = require('socket.io/node_modules/redis');
+
+//for test-cov
+exports.weekee = weekee;
+exports.file = require(lib + 'file');
+exports.git = require(lib + 'git');
+exports.io = require(lib + 'io');
+exports.utils = require(lib + 'utils');
