@@ -40,7 +40,7 @@ weekee created! And start listen 8080
 ```
 
 Defualt weekee  
-![weekee](https://github.com/dead-horse/weekee/master/weekee.png) 
+![weekee](https://raw.github.com/dead-horse/weekee/master/weekee.png) 
 
 
 ### Use In Project  
@@ -159,7 +159,7 @@ If you want to get a better editor with [ace](https://github.com/ajaxorg/ace), j
 ```
 
 Work with exist project  
-![weekee project](https://github.com/dead-horse/weekee/master/weekee_proj.png)  
+![weekee project](https://raw.github.com/dead-horse/weekee/master/weekee_proj.png)  
 
 ### dependences   
 * `Git`  
