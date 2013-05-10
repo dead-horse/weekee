@@ -1,7 +1,7 @@
 
 # weekee![travis-ci](https://secure.travis-ci.org/dead-horse/weekee.png) 
 
-  A wiki base git and markdown, power by Node.js, and can be use with connect or express
+  A wiki base git and markdown, power by Node.js, and can be use with connect or express. Maybe you can also use it as a web editor.
 
 -----------------------
 
@@ -38,6 +38,10 @@ $ weekee
    info  - socket.io started
 weekee created! And start listen 8080
 ```
+
+Defualt weekee  
+![weekee](https://github.com/dead-horse/weekee/master/weekee.png) 
+
 
 ### Use In Project  
 You can both use weekee's default http server and your own http server write by connect/express/http.   
@@ -153,6 +157,9 @@ If you want to get a better editor with [ace](https://github.com/ajaxorg/ace), j
 ```html
 <script src="/weekee/js/weekee-ace.js"></script>
 ```
+
+Work with exist project  
+![weekee project](https://github.com/dead-horse/weekee/master/weekee_proj.png)  
 
 ### dependences   
 * `Git`  
