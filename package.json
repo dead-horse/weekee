@@ -19,8 +19,13 @@
   "devDependencies": {
     "mocha": "*",
     "should": "*",
-    "jscover": ">=0.2.0",
+    "blanket": "1.1.4",
     "mm": "0.1.3"
+  },
+  "scripts": {
+    "blanket": {
+      "pattern": "weekee/lib"
+    }
   },
   "main": "index"
 }

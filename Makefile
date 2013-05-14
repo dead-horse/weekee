@@ -17,15 +17,11 @@ test: install-test
 	@NODE_ENV=test ./node_modules/mocha/bin/mocha \
 		--reporter $(REPORTER) --timeout $(TIMEOUT) $(MOCHA_OPTS) $(TESTS)
 
-lib-cov:
-	@rm -rf $@
-	@$(JSCOVERAGE) lib $@
-
-test-cov: lib-cov
-	@WEEKEE_COV=1 $(MAKE) test REPORTER=dot
-	@WEEKEE_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
+test-cov:
+	@$(MAKE) test REPORTER=dot MOCHA_OPTS='--require blanket'
+	@$(MAKE) test REPORTER=html-cov > coverage.html MOCHA_OPTS='--require blanket'
 
 clean:
 	@rm -f coverage.html
 
-.PHONY: install install-test test test-cov lib-cov clean toast check
+.PHONY: install install-test test test-cov clean toast check

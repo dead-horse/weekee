@@ -165,10 +165,9 @@ Work with exist project
 * `Git`  
 
 ### todo   
-1. add unit test  
-2. push change to git server  
-3. cli tool  
-
+1. add more unit test  
+2. file change log  
+3. a way to bind more event
 
 ### Licences
 (The MIT License)
