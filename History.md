@@ -1,4 +1,10 @@
 
+n.n.n / 2013-05-15 
+==================
+
+  * fix readFolder bug
+  * before import weekee.js in front end, set window.weekeeSocket to use an own socket.  
+
 0.0.7 / 2013-05-07 
 ==================
 
