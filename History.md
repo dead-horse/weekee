@@ -1,5 +1,10 @@
 
-n.n.n / 2013-05-15 
+0.0.9 / 2013-05-15 
+==================
+
+  * fix weekee-bootstrap.js socket error.  
+
+0.0.8 / 2013-05-15 
 ==================
 
   * fix readFolder bug
