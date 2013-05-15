@@ -7,10 +7,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/weekee/js/weekee.js"></script>
-    <script src="/weekee/js/weekee-bootstrap.js"></script>
-    <script src="/weekee/js/weekee-ace.js"></script>    
   </head>
   <body>
   <body>
@@ -27,5 +23,13 @@
         </div><!--/span-->
       </div><!--/row-->
     </div>    
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      //init weekee socket outside
+      window.weekeeSocket = io.connect(window.location.protocol + '//' + window.location.host);
+    </script>
+    <script src="/weekee/js/weekee.js"></script>
+    <script src="/weekee/js/weekee-bootstrap.js"></script>
+    <script src="/weekee/js/weekee-ace.js"></script>        
   </body>
 </html>

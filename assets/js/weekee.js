@@ -97,8 +97,9 @@ $(function () {
       $('#weekee-content').html('Click on a file on the left to open it');
     }
   }
-
-  var socket = window.socket = io.connect(window.location.protocol + '//' + window.location.host);
+  var socket = window.weekeeSocket || io.connect(window.location.protocol + '//' + window.location.host);
+  window.weekeeSocket = socket;
+  
   var hash = window.location.hash;
   if (hash) {
     socket.emit('readFolderAndFile', hash.slice(1));  
@@ -107,7 +108,6 @@ $(function () {
   }
   socket.on('error', function (msg) {
     console.log(msg);
-    alert(msg);
   });
 
   socket.on('readFolderReply', function (data) {
