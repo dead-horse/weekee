@@ -33,10 +33,10 @@ $(function () {
   $('#weekee-delete').addClass('btn-danger');
   $('#weekee-deletefolder').addClass('btn-danger');
   $('#weekee-header').addClass('clearfix'); 
-  socket.on('readFileReply', function () {
+  weekeeSocket.on('readFileReply', function () {
     $('pre code').each(function(i, e) {hljs.highlightBlock(e, '  ')});
   });
-  socket.on('saveFileReply', function () {
+  weekeeSocket.on('saveFileReply', function () {
     $('pre code').each(function(i, e) {hljs.highlightBlock(e, '  ')});
   });
   $('#weekee-cancle').click(function () {
