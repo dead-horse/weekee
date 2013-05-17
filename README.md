@@ -122,6 +122,7 @@ In front end, you need to connect to server side socket.io. Server side are list
 6. `goBack`: go back to the upper folder.  
 7. `removeFile`: remove file. If in git module, when remove the last file in folder, the folder will be remove at the same time. 
 8. `removeFolder`: remove folder.  
+9. `readFolderAndFile`: Read a file and it's directory. The server side will emit `readFileReply` and `readFolderReply`  
 
 And server side socket.io will emit these events:  
 
@@ -143,6 +144,16 @@ An easy way to create your own page, In front html, you must have tow container:
 Then include JS file:  
 
 ```html
+<script src="/weekee/js/weekee.js"></script>
+```
+
+If your node server is listen at 7001, but use nginx in front of your node server listen at 80. Then you can try this:  
+Bofore include `weekee.js`, You can use your own socket.io client to connect to your real node server.   
+
+```html
+<script>
+  window.weekeeSocket = io.connect('localhost:7001');
+</script>
 <script src="/weekee/js/weekee.js"></script>
 ```
 
@@ -172,7 +183,7 @@ Work with exist project
 ### Licences
 (The MIT License)
 
-Copyright (c) 2013 dead-horse and other contributors
+Copyright (c) 2013 dead-horse
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
