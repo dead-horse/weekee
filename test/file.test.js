@@ -146,7 +146,7 @@ describe('test/lib/file.test.js', function () {
 
     it('should ok', function (done) {
       mm.empty(fs, 'unlink');
-      file.remove('in.js', constant.dependencies, 'file', function (err) {
+      file.remove('in.js', constant.directory, 'file', function (err) {
         should.not.exist(err);
         done();
       });
