@@ -1,4 +1,13 @@
 
+0.1.0 / 2013-10-22 
+==================
+
+  * fix test and bug in 0.10.x
+  * add custom markdown parser
+  * fix node-static in 0.10.x
+  * update readme
+  * fix git error
+
 0.0.9 / 2013-05-15 
 ==================
 
