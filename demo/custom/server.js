@@ -3,6 +3,7 @@ var weekee = require('../../');
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
+var marked = require('marked');
 
 var server = http.createServer(function (req, res) {
   if (req.url === '/') {
@@ -17,6 +18,10 @@ var server = http.createServer(function (req, res) {
   res.end('can not get ' + req.url);
 });
 
+// Set default options
+marked.setOptions({
+  gfm: false
+});
 
 weekee.create({
   server: server,
@@ -24,7 +29,8 @@ weekee.create({
   git: {
     url: 'git@github.com:dead-horse/weekeewiki.git'
   },
-  enableStatic: true
+  enableStatic: true,
+  markdown: marked
 });
 
 server.listen(8080);

@@ -60,6 +60,7 @@ weekee's options are:
  *   - {String} url            git remote url
  *   - {String} name           git user.name
  *   - {String} email          git user.email
+ * @param {Function} markdown      a custom parser translate markdown to html, default use `marked`
  */
 function weekee(options);
 ```
