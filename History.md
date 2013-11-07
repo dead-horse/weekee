@@ -1,4 +1,15 @@
 
+0.1.1 / 2013-11-07 
+==================
+
+  * add encodeURIComponent, fix #2
+  * Release 0.1.0
+  * fix test and bug in 0.10.x
+  * add custom markdown parser
+  * fix node-static in 0.10.x
+  * update readme
+  * fix git error
+
 0.1.0 / 2013-10-22 
 ==================
 
