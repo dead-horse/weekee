@@ -79,7 +79,7 @@ $(function () {
 
   function renderContent(data) {
     window.location.hash = data.fileName ?
-      ('#' + (CURRENT_DIRECTORY ? CURRENT_DIRECTORY + '/' : '') + data.fileName) : '';
+      ('#' + encodeURIComponent((CURRENT_DIRECTORY ? CURRENT_DIRECTORY + '/' : '') + data.fileName)) : '';
     $('.files').each(function (i, row) {
       if ($(row).data('name') === data.fileName) {
         $('.files').removeClass('weekee-selected');
@@ -102,7 +102,7 @@ $(function () {
   
   var hash = window.location.hash;
   if (hash) {
-    socket.emit('readFolderAndFile', hash.slice(1));  
+    socket.emit('readFolderAndFile', decodeURIComponent(hash.slice(1)));
   } else {
     socket.emit('readFolder');  
   }
