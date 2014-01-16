@@ -1,16 +1,15 @@
-TESTS = $(shell ls -S `find test -type f -name "*.test.js" -print`)
+TESTS = test/*.test.js
 TIMEOUT = 5000
 MOCHA_OPTS =
 REPORTER = tap
-PROJECT_DIR = $(shell pwd)
-JSCOVERAGE = ./node_modules/jscover/bin/jscover
-NPM_INSTALL_PRODUCTION = PYTHON=`which python2.6` NODE_ENV=production npm install
-NPM_INSTALL_TEST = PYTHON=`which python2.6` NODE_ENV=test npm install
+NPM_REGISTRY = "--registry=http://registry.cnpmjs.org"
+NPM_INSTALL_PRODUCTION = PYTHON=`which python2.6` NODE_ENV=production npm install $(NPM_REGISTRY)
+NPM_INSTALL_TEST = PYTHON=`which python2.6` NODE_ENV=test npm install $(NPM_REGISTRY)
 
 install:
 	@$(NPM_INSTALL_PRODUCTION)
 
-install-test: check
+install-test:
 	@$(NPM_INSTALL_TEST)
 
 test: install-test
@@ -23,5 +22,10 @@ test-cov:
 
 clean:
 	@rm -f coverage.html
+	@rm -rf node_modules
 
-.PHONY: install install-test test test-cov clean toast check
+autod: install-test
+	@./node_modules/.bin/autod -w -e demo,assets,view
+	@$(MAKE) install-test
+
+.PHONY: install install-test test test-cov clean toast
