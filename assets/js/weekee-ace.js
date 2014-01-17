@@ -18,8 +18,8 @@ var modes = {
 function setMode(editor, fileName) {
   var index = fileName.lastIndexOf('.');
   if (index < 0) {
-    editor.getSession().setMode('ace/mode/markdown');    
-  } 
+    editor.getSession().setMode('ace/mode/markdown');
+  }
   var extName = fileName.slice(fileName.lastIndexOf('.') + 1);
   if (modes[extName]) {
     editor.getSession().setMode('ace/mode/' + modes[extName]);
@@ -49,13 +49,13 @@ $(function () {
     var editor = ace.edit('weekee-aceedit-content');
     var heightUpdateFunction = function() {
       // http://stackoverflow.com/questions/11584061/
-      var newHeight = editor.getSession().getScreenLength() * editor.renderer.lineHeight + 
+      var newHeight = editor.getSession().getScreenLength() * editor.renderer.lineHeight +
         editor.renderer.scrollBar.getWidth();
       if (newHeight < h) {
         newHeight = h;
       }
       $('#weekee-aceedit-content').height(newHeight + 'px');
-      //$('#editor-section').height(newHeight.toString() + "px"); 
+      //$('#editor-section').height(newHeight.toString() + "px");
 
       // This call is required for the editor to fix all of
       // its inner structure for adapting to a change in size
@@ -82,11 +82,11 @@ $(function () {
         exec: function(env, args, request) {
           $('#weekee-save').click();
         }
-      });    
+      });
     editor.setTheme("ace/theme/textmate");
     bindSetMode(editor, $('#weekee-title'));
     editor.getSession().on('change', function () {
       $node.val(editor.getValue());
-    });         
+    });
   });
 });
