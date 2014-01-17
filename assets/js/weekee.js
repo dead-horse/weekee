@@ -2,8 +2,9 @@ $(function () {
   var FILE = {};
   var FOLDER = {};
   var CURRENT_DIRECTORY = '';
+  var changingHash = false;
 
-  var folderSidebar = 
+  var folderSidebar =
     '<div id="weekee-foldername"></div>\
      <ul id="weekee-folder"></ul>\
      <div id="weekee-folder-controllers">\
@@ -12,7 +13,7 @@ $(function () {
       <button id="weekee-deletefolder" style="display: none;">Del Folder</button>\
      </div>';
 
-  var fileContainer = 
+  var fileContainer =
     '<div id="weekee-header" class="clearfix">\
        <div id="weekee-title">Node Weekee</div>\
        <div id="weekee-file-controllers">\
@@ -25,13 +26,13 @@ $(function () {
      </div>\
      <div id="weekee-content">Click on a file on the left to open it</div>';
 
-  var edit = 
+  var edit =
     '<textarea style="width: 100%; height: 500px;" id="weekee-edit-content"></textarea>';
 
-  var titleEdit = 
+  var titleEdit =
     '<input type="text" style="width: 100%;" id="weekee-edit-title"></input>';
 
-  var newFolderHtml = 
+  var newFolderHtml =
   $('#weekee-file-container').html(fileContainer);
   $('#weekee-folder-container').html(folderSidebar);
 
@@ -64,7 +65,7 @@ $(function () {
         displayName: '..',
         realName: '..',
         selected: ''
-      });        
+      });
     }
     data.files.forEach(function (row) {
       html += tplReplace(sideLi, {
@@ -78,12 +79,13 @@ $(function () {
   }
 
   function renderContent(data) {
+    changingHash = true;
     window.location.hash = data.fileName ?
       ('#' + encodeURIComponent((CURRENT_DIRECTORY ? CURRENT_DIRECTORY + '/' : '') + data.fileName)) : '';
     $('.files').each(function (i, row) {
       if ($(row).data('name') === data.fileName) {
         $('.files').removeClass('weekee-selected');
-        $(this).addClass('weekee-selected');          
+        $(this).addClass('weekee-selected');
       }
     });
     FILE = data;
@@ -99,13 +101,23 @@ $(function () {
   }
   var socket = window.weekeeSocket || io.connect(window.location.protocol + '//' + window.location.host);
   window.weekeeSocket = socket;
-  
+
   var hash = window.location.hash;
   if (hash) {
     socket.emit('readFolderAndFile', decodeURIComponent(hash.slice(1)));
   } else {
-    socket.emit('readFolder');  
+    socket.emit('readFolder');
   }
+
+  window.onhashchange = function () {
+    if (changingHash) {
+      changingHash = false;
+      return;
+    }
+    var hash = window.location.hash;
+    socket.emit('readFolderAndFile', decodeURIComponent(hash.slice(1)));
+  };
+
   socket.on('error', function (msg) {
     console.log(msg);
   });
@@ -118,7 +130,7 @@ $(function () {
     }
     $('#weekee-foldername').html(data.folderName || 'ROOT_DIR');
     CURRENT_DIRECTORY = data.directory;
-    renderSideBar(data);      
+    renderSideBar(data);
   });
 
   socket.on('readFileReply', function (data) {
