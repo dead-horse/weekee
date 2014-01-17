@@ -1,6 +1,6 @@
 {
   "name": "weekee",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A wiki base git and markdown, power by Node.js, and can be use with connect or express",
   "keywords": ["wiki", "git", "markdown"],
   "author": "dead-horse <dead_horse@qq.com>",
