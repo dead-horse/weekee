@@ -93,6 +93,14 @@ $(function () {
       buttonActions.fileOpen();
       $('#weekee-title').html(data.fileName);
       $('#weekee-content').html(data.htmlContent || 'empty file');
+      $('#weekee-content a').click(function () {
+        var redirect = $(this).attr('href');
+        if (redirect.indexOf('http') === 0) {
+          window.open(redirect);
+          return false;
+        }
+        return true;
+      });
     } else {
       buttonActions.noFileOpen();
       $('#weekee-title').html('Node Weekee');
